@@ -5,3 +5,12 @@ services:
 script:
     - docker build -t zamonier/node .
     - docker images zamonier/node
+    
+before_deploy:
+    - docker login -u $DOCKER_HUB_LOGIN -p $DOCKER_HUB_PASSWORD
+    
+deploy:
+    provider: script
+    script: docker push zamonier/node
+    on:
+        branch: main
